@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src = "https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from slate-900 via-gray-900 to-black flex justify-center items-center min-h-screen text-white relative">
+    <div class = "bg-black p-6 rounded-[35px] shadow-2xl shadow-black/70 border border-gray-800 w-[340px] transistion-all duration-300 hover:shadow-orange-500/10">
+        <input type="text" id="display" class="w-full bg-transparent text-right font-light px-2 py-6 mb-4 outline-none tracking-wide text-white text-5xl" value="Off" readonly>
+
+        <div class="grid grid-cols-4 gap-3">
+
+            <button class="bg-gray-400 text-black w-16 h-16 rounded-full text-xl font-medium hover:bg-gray-300 active:scale-95 transistion-all" data-value="Del">⌫</button>
+            <button id="clear" class="bg-gray-400 text-black w-16 h-16 rounded-full text-xl font-medium hover:bg-gray-300 active:scale-95 transistion-all" data-value="AC">AC</button>
+            <button class="bg-gray-400 text-black w-16 h-16 rounded-full text-xl font-medium hover:bg-gray-300 active:scale-95 transistion-all" data-value="%">%</button>
+            <button class="bg-gray-400 text-black w-16 h-16 rounded-full text-xl font-medium hover:bg-gray-300 active:scale-95 transistion-all" data-value="÷">÷</button>
+
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="7">7</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="8">8</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="9">9</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="×">×</button>
+
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="4">4</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="5">5</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="6">6</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="-">-</button>
+
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="1">1</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="2">2</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="3">3</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="+">+</button>
+
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="0">0</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value=".">.</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="Sign">+/-</button>
+            <button class="bg-gray-800 text-white w-16 h-16 rounded-full text-2xl font-medium hover:bg-gray-700 active:scale-95 transistion-all" data-value="=">=</button>
+        </div>
+
+    </div>
+
+    <button id="powerButton" class="absolute top-8 left-1/2 transform -translate-x-1/2 text-white w-14 h-14 rounded-full text-xl flex justify-center items-center hover:opacity-80 transition-all bg-green-600 shadow-lg shadow-green-500/40" data-value="POWER">
+        <i class="fa-solid fa-power-off pointer-events-none"></i>
+    </button>
+
+    <script src="calculator.js"></script>
+    
+
+
+    
+
+    
+</body>
+</html>
