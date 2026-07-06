@@ -1,139 +1,136 @@
-const display = document.getElementById('display');
-const powerButton = document.getElementById('powerButton');
-const clearButton = document.getElementById('clear');
-const buttons = document.querySelectorAll("button");
-const operators = ["+", "-", "×", "÷", "%"];
+var screenInput = document.getElementById("display");
+var btnPower = document.getElementById("powerButton");
+var btnClear = document.getElementById("clear");
+var allButtons = document.querySelectorAll("button");
 
-let isOn = false;
-display.value = "Off";
+var  powerOn = false;
+screenInput.value = "Off";
+btnPower.classList.remove("bg-red-600", "shadow-red-500/40");
+btnPower.classList.add("bg-green-600", "shadow-green-500/40");
 
-powerButton.classList.remove("bg-red-600", "shadow-red-500/40");
-powerButton.classList.add("bg-green-600", "shadow-green-500/40");
-updateClearButton();
-updateDisplaySize();
+function adjustFontSize(){
+    var textLen = screenInput.value.length;
+    screenInput.classList.remove("text-5xl", "text-3xl", "text-2xl", "text-xl");
+ 
+    if (textLen < 11) {
+        screenInput.classList.add("text-5xl");
 
-let lastOperator = "";
-let lastOperand = "";
-
-function updateDisplaySize() {
-    let length = display.value.length;
-
-    display.classList.remove("text-5xl", "text-4xl", "text-3xl", "text-2xl", "text-xl");
-    if (length <= 10) {
-        display.classList.add("text-5xl");
-    } else if (length <= 13) {
-        display.classList.add("text-4xl");
-    } else if (length <= 17) {
-        display.classList.add("text-3xl");
-    } else if (length <= 21) {
-        display.classList.add("text-2xl");
+    } else if (textLen < 15){
+        screenInput.classList.add("text-5xl");
+    } else if (textLen < 19) {
+        screenInput.classList.add("text-3xl");
+    } else if (textLen < 23) {
+        screenInput.classList.add("text-2xl");
     } else {
-        display.classList.add("text-xl");
-    }
-
-}
-
-function updateClearButton() {
-
-    if (!isOn) {
-        clearButton.textContent = "AC";
-        return;
-    }
-    if (display.value === "") {
-        clearButton.textContent = "AC";
-    } else {
-        clearButton.textContent = "C";
+        screenInput.classList.add("text-xl");
     }
 }
 
-buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-        const value = button.dataset.value;
 
-        if (value === "POWER") {
-            isOn = !isOn;
-
-            if (isOn) {
-                display.value = "";
-                powerButton.classList.remove("bg-green-600", "shadow-green-500/40");
-                powerButton.classList.add("bg-red-600", "shadow-red-500/40");
-            } else {
-                display.value = "Off";
-
-                powerButton.classList.remove("bg-red-600", "shadow-red-500/40");
-                powerButton.classList.add("bg-green-600", "shadow-green-500/40");
-            }
-
-            updateDisplaySize();
-            updateClearButton();
-            return;
-        }
-        if (!isOn) {
-            return;
-        }
-        if (display.value === "Error" && value !== "AC") {
-            display.value = "";
-        } else if (value === "Sign") {
-            if (display.value !== "") {
-                if (display.value.startsWith("-")) {
-                    display.value = display.value.slice(1);
-                } else {
-                    display.value = "-" + display.value;
-                }
-            }
-
-        } else if (value === "AC") {
-            display.value = "";
-        } else if (value === "Del") {
-            display.value = display.value.slice(0, -1);
-        } else if (value === "=") {
-            try {
-                let expression = display.value.replace(/×/g, "*").replace(/÷/g, "/");
-                let result = eval(expression);
-
-                if (Number.isInteger(result)) {
-                    display.value = result;
-
-                } else {
-                    display.value = parseFloat(result.toFixed(4));
-                }
-
-            } catch (error) {
-                display.value = "Error";
-            }
+function checkClearText(){
+     if (powerOn == false) {
+        btnClear.innerText = "AC";
+    } else {
+        if (screenInput.value == "") {
+            btnClear.innerText = "AC";
         } else {
-            if (display.value === "" && ["+", "×", "÷", "%"].includes(value)) {
-                return;
-            }
+            btnClear.innerText = "C";
+        }
+    }
+}
 
-            let lastCharacter = display.value.slice(-1);
-            if (operators.includes(lastCharacter) && operators.includes(value)) {
-                return;
+checkClearText();
+adjustFontSize();
+
+for(var i =0; i < allButtons.length; i++){
+    allButtons[i].onclick = function(event) {
+        var clickedValue = event.target.getAttribute("data-value");
+
+        if (clickedValue == "POWER") {
+            if (powerOn == true) {
+                powerOn = false;
+                screenInput.value = "OFF";
+                btnPower.classList.remove("bg-red-600", "shadow-red-500/40");
+                btnPower.classList.add("bg-green-600", "shadow-green-500/40");
+            } else {
+                powerOn = true;
+                screenInput.value = "";
+                btnPower.classList.remove("bg-green-600", "shadow-green-500/40");
+                btnPower.classList.add("bg-red-600", "shadow-red-500/40");
             }
-            if (value === ".") {
-                let numbers = display.value.split(/[+\-×÷%]/);
-                let currentNumber = numbers[numbers.length - 1];
-                if (currentNumber.includes(".")) {
-                    return;
+            adjustFontSize();
+            checkClearText();
+            return;
+        }
+        if (powerOn == false) {
+            return;
+        }
+
+        if (screenInput.value == "Error" && clickedValue != "AC") {
+            screenInput.value = "";
+        }
+
+        if (clickedValue == "AC") {
+            screenInput.value = "";
+        } 
+        else if (clickedValue == "DEL") {
+            var currentText = screenInput.value;
+            screenInput.value = currentText.substring(0, currentText.length - 1);
+        } 
+        else if (clickedValue == "SIGN") {
+            if (screenInput.value != "") {
+                if (screenInput.value[0] == "-") {
+                    screenInput.value = screenInput.value.substring(1);
+                } else {
+                    screenInput.value = "-" + screenInput.value;
                 }
             }
-
-            if (value === "*") {
-                display.value += "×";
-            } else if (value === "/") {
-                display.value += "÷";
-            } else {
-                display.value += value;
+        } 
+        else if (clickedValue == "=") {
+            try {
+                var mathString = screenInput.value;
+                
+                // replace operators for eval
+                mathString = mathString.split("×").join("*");
+                mathString = mathString.split("÷").join("/");
+                
+                var answer = eval(mathString);
+                
+                // check for decimals
+                if (answer % 1 != 0) {
+                    answer = parseFloat(answer.toFixed(4));
+                }
+                
+                screenInput.value = answer;
+            } catch (err) {
+                screenInput.value = "Error";
             }
-
-
-
-
-
-
         }
-        updateDisplaySize();
-        updateClearButton();
-
-    });
-});
+        else {
+            var isOperator = (clickedValue == "+" || clickedValue == "-" || clickedValue == "×" || clickedValue == "÷" || clickedValue == "%");
+            
+            if (screenInput.value == "" && isOperator) {
+                // do not start with operator
+            } else {
+                var lastChar = screenInput.value.charAt(screenInput.value.length - 1);
+                var lastCharIsOp = (lastChar == "+" || lastChar == "-" || lastChar == "×" || lastChar == "÷" || lastChar == "%");
+                
+                if (lastCharIsOp && isOperator) {
+                    // do not put two operators together
+                } else {
+                    if (clickedValue == ".") {
+                        var parts = screenInput.value.split(/[\+\-\×\÷\%]/);
+                        var lastPart = parts[parts.length - 1];
+                        if (lastPart.indexOf(".") != -1) {
+                            return; // prevent double decimal
+                        }
+                    }
+                    
+                    screenInput.value = screenInput.value + clickedValue;
+                }
+            }
+        }
+        adjustFontSize();
+        checkClearText();
+    };
+}
