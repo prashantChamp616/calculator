@@ -49,7 +49,7 @@ for(var i =0; i < allButtons.length; i++){
         if (clickedValue == "POWER") {
             if (powerOn == true) {
                 powerOn = false;
-                screenInput.value = "OFF";
+                screenInput.value = "Off";
                 btnPower.classList.remove("bg-red-600", "shadow-red-500/40");
                 btnPower.classList.add("bg-green-600", "shadow-green-500/40");
             } else {
@@ -73,11 +73,11 @@ for(var i =0; i < allButtons.length; i++){
         if (clickedValue == "AC") {
             screenInput.value = "";
         } 
-        else if (clickedValue == "DEL") {
+        else if (clickedValue == "Del") {
             var currentText = screenInput.value;
             screenInput.value = currentText.substring(0, currentText.length - 1);
         } 
-        else if (clickedValue == "SIGN") {
+        else if (clickedValue == "Sign") {
             if (screenInput.value != "") {
                 if (screenInput.value[0] == "-") {
                     screenInput.value = screenInput.value.substring(1);
