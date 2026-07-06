@@ -90,13 +90,11 @@ for(var i =0; i < allButtons.length; i++){
             try {
                 var mathString = screenInput.value;
                 
-                // replace operators for eval
                 mathString = mathString.split("×").join("*");
                 mathString = mathString.split("÷").join("/");
                 
                 var answer = eval(mathString);
                 
-                // check for decimals
                 if (answer % 1 != 0) {
                     answer = parseFloat(answer.toFixed(4));
                 }
@@ -110,19 +108,19 @@ for(var i =0; i < allButtons.length; i++){
             var isOperator = (clickedValue == "+" || clickedValue == "-" || clickedValue == "×" || clickedValue == "÷" || clickedValue == "%");
             
             if (screenInput.value == "" && isOperator) {
-                // do not start with operator
+                
             } else {
                 var lastChar = screenInput.value.charAt(screenInput.value.length - 1);
                 var lastCharIsOp = (lastChar == "+" || lastChar == "-" || lastChar == "×" || lastChar == "÷" || lastChar == "%");
                 
                 if (lastCharIsOp && isOperator) {
-                    // do not put two operators together
+                    
                 } else {
                     if (clickedValue == ".") {
                         var parts = screenInput.value.split(/[\+\-\×\÷\%]/);
                         var lastPart = parts[parts.length - 1];
                         if (lastPart.indexOf(".") != -1) {
-                            return; // prevent double decimal
+                            return; 
                         }
                     }
                     
